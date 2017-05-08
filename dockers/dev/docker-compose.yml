@@ -1,0 +1,18 @@
+version: "3"
+services:
+  ruby:
+    build:
+      context: ./docker-files/dev-ruby
+      args:
+        uid: $DEVUSER_UID
+    environment:
+      DEVUSER_UID:
+      MYSQL_ROOT_PASSWORD: password
+    volumes:
+      - ../../jewelry-box:/home/devuser/works/jewelry-box
+  db:
+    image: mariadb:10.1.23
+    volumes:
+      - ./datastore/db:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
